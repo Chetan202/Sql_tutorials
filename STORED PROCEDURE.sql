@@ -1,0 +1,89 @@
+/*
+	STORED PROCEDURE / PROC
+
+	@FLAG VARCHAR(100) = NULL,
+
+*/
+
+CREATE PROCEDURE PROC_SHOP
+@FLAG VARCHAR(100) = NULL,
+@ID INT= NULL,
+@CUST_NAME VARCHAR(100) = NULL,
+@CUST_PROD VARCHAR(100) = NULL,
+@CUST_AMT MONEY = NULL
+
+AS
+BEGIN
+
+IF @FLAG = 'SELECT'
+BEGIN
+		SELECT ID,CUST_NAME,cust_prod,cust_amt FROM SHOP
+END
+
+IF @FLAG = 'INSERT'
+BEGIN
+		INSERT INTO SHOP
+		(CUST_NAME,cust_prod,cust_amt)
+		VALUES
+		(@CUST_NAME,@cust_prod,@cust_amt)
+END
+
+IF @FLAG ='UPDATE'
+BEGIN
+		UPDATE SHOP
+		SET
+		CUST_NAME = @CUST_NAME,
+		cust_prod = @cust_prod,
+		cust_amt = @cust_amt
+		WHERE 
+		ID = @ID
+END
+
+IF @FLAG = 'DELETE'
+BEGIN
+		DELETE FROM SHOP
+		WHERE 
+		ID = @ID
+END
+
+END
+
+EXECUTE PROC_SHOP 
+@FLAG  = 'SELECT',
+@ID = NULL,
+@CUST_NAME  = NULL,
+@CUST_PROD  = NULL,
+@CUST_AMT  = NULL
+
+EXEC PROC_SHOP 
+@FLAG  = 'INSERT',
+--@ID = NULL,
+@CUST_NAME  = 'Raj',
+@CUST_PROD  = 'Lava',
+@CUST_AMT  = '4847'
+
+EXEC PROC_SHOP 
+@FLAG  = 'UPDATE',
+@ID = 3,
+@CUST_NAME  = 'Raj',
+@CUST_PROD  = 'TShirt',
+@CUST_AMT  = '2300.00'
+
+EXECUTE PROC_SHOP 
+@FLAG  = 'DELETE',
+@ID = 7,
+@CUST_NAME  = NULL,
+@CUST_PROD  = NULL,
+@CUST_AMT  = NULL
+
+
+
+
+
+
+
+
+
+
+
+
